@@ -85,7 +85,14 @@ public class Distribuidora {
                     venta.agregarDetalle(new DetalleVenta(articuloSeleccionado, packs));
                     System.out.println("Detalle agregado OK");
                 } else {
-                    System.out.println("El pack no es completo, no se registró el detalle.");
+                    // --- 05 Mensaje explícito si no es múltiplo de pack ---
+                    int sugerida = articuloSeleccionado.sugerirCantidadValida(cantidad);
+
+                    System.out.println("El pack no es completo.");
+                    System.out.println("Ingresaste: " + cantidad + " unidades.");
+                    System.out.println("Cantidad más cercana sugerida: " + sugerida + " unidades.");
+                    System.out.println("El detalle NO se registró, debe ingresar una cantidad válida.");
+
                 }
 
             } else {

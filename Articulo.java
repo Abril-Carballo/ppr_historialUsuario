@@ -37,6 +37,28 @@ public class Articulo implements Comparable
         return cantidad / tamanioPack;
     }
 
+    /* 05 MÉTODO para saber la cantidad de packs que puedo formar. */
+    public int sugerirCantidadValida(int cantidad) {
+        if (cantidad % tamanioPack == 0) {
+            return cantidad; // si ya es múltiplo exacto, no hace falta sugerir
+        }
+
+        int multiploInferior = (cantidad / tamanioPack) * tamanioPack;
+    
+        // se suma 1 para que el resultado sea múltiplo de tamanioPack
+        int multiploSuperior = ((cantidad / tamanioPack) + 1) * tamanioPack;
+
+        // elegimos el que esté más cerca
+        if (cantidad - multiploInferior <= multiploSuperior - cantidad) {
+            return multiploInferior;
+        } else {
+            return multiploSuperior;
+        }
+    }
+
+
+    
+
     
     // Sirve para definir un criterio de ordenamiento natural de los objetos de una clase.
      public int compareTo(Object o){
