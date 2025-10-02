@@ -43,20 +43,28 @@ public class Distribuidora
     
     public void registrarVenta(){
         Venta venta = null;
-        int codigoCliente = 1; // Aca paso un codigo en especifico
-        int codigoArticulo = 0; // Aca tambien 
+        int codigoArticulo = 0; // arranca el recorrido de articulos 
+        Scanner sc = new Scanner(System.in); //Lee la entrada del usuario
         
         System.out.println(listaClientes);
         Collections.sort(listaClientes); // llamo al metodo para ordenar alfabeticamente 
-        Cliente clienteSeleccionado = getClienteSeleccionado(codigoCliente); // obtiene el cliente con el código dado y lo guarda en una variable para usarlo después
         System.out.println(listaClientes);
         
-        if (clienteSeleccionado == null) {
-            System.out.println("Cliente no encontrado.");
-            return;
-        }else{
-             venta = new Venta(clienteSeleccionado);
-        }
+        //HU 08: Validacion del cliente
+        Cliente clienteSeleccionado = null;
+        do {
+            System.out.println("Lista de clientes disponibles: " + listaClientes);
+            System.out.print("Ingrese el código del cliente: ");
+            int codigoCliente = sc.nextInt(); //Lee un numero entero y lo guarda en la variable "codigoCliente"
+            clienteSeleccionado = getClienteSeleccionado(codigoCliente); // obtiene el cliente con el código dado y lo guarda en una variable para usarlo después
+            
+            if (clienteSeleccionado == null) {
+                System.out.println("Cliente no encontrado. Intente nuevamente");
+            }
+        } while (clienteSeleccionado == null);
+
+        //Si llega aca es porque encontro un cliente valido
+        venta = new Venta(clienteSeleccionado);
         
         // imprimo la lista antes y despues de ordenarla
         System.out.println(listaArticulos);
