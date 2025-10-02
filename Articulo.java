@@ -13,7 +13,7 @@ public class Articulo implements Comparable
    /** 03 CONSTRUCTOR con validación de la cant de pack  */
     public Articulo(int codigo, String nombre, double precio, int tamanioPack) {
         if (tamanioPack <= 0) {
-            System.out.println("El tamaño del pack debe ser mayor a 0");
+            System.out.println("El tamaño del pack debe ser mayor a 00");
             throw new IllegalArgumentException("'El tamaño del pack debe ser mayor a 0'");
         }
         this.codigo = codigo;
