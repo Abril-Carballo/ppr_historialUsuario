@@ -27,6 +27,7 @@ public class Venta
     }
 
     public String toString() {
+        System.out.println("--------------------");
         String s = "Cliente: " + cliente.getNombre() + "\n";
         for (DetalleVenta d : detalles) {
             s += d + "\n";

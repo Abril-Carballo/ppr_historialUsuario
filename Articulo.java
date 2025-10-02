@@ -26,6 +26,17 @@ public class Articulo implements Comparable
      public String toString(){
         return this.codigo +" - "+ this.denominacion;
     }
+
+    // 04 MÉTODO verificar si una cantidad de artículos forma packs completos sin que sobren unidades.
+    public boolean esPackCerrado(int cantidad) {
+        return cantidad % this.tamanioPack == 0; // Calcula el resto y si es 0 devuelve true
+    }
+
+    // MÉTODO para saber la cantidad de packs que puedo formar.
+    public int cantidadPacks(int cantidad) {
+        return cantidad / tamanioPack;
+    }
+
     
     // Sirve para definir un criterio de ordenamiento natural de los objetos de una clase.
      public int compareTo(Object o){

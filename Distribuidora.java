@@ -2,25 +2,27 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 
-public class Distribuidora
-{
+public class Distribuidora {
     ArrayList<Articulo> listaArticulos;
     ArrayList<Cliente> listaClientes;
     
-    public Distribuidora()
-    {
+    public Distribuidora() {
         this.listaArticulos = new ArrayList();
         this.listaClientes = new ArrayList();
     }
 
+    // inicia agregando articulos y clientes
     public void iniciar(){
         listaClientes.add(new Cliente(1,"Consumidor Final"));
         listaClientes.add(new Cliente(2,"Ruleta"));   
         listaClientes.add(new Cliente(3,"Perez Ana"));
+
+        listaArticulos.add(new Articulo(1,"Jugo de agua", 10.0, 10));
+        listaArticulos.add(new Articulo(2,"Jugo de limón", 20.0, 10));
     }
-    
-    
-    private Articulo getArticuloSeleccionado(int codigo){
+
+    // Método privado que recibe un código y devuelve el artículo que tenga ese código
+    private Articulo getArticuloSeleccionado(int codigo) {
         Articulo articuloSeleccionado = null;
         for (Articulo a : listaArticulos) {
             if (a.getCodigo() == codigo) {
@@ -29,7 +31,7 @@ public class Distribuidora
         }
         return articuloSeleccionado;
     }
-    
+
     // busca un cliente dentro de listaClientes cuyo código coincida con el pasado por parámetro
     private Cliente getClienteSeleccionado(int codigo){
         Cliente clienteSeleccionado = null;
@@ -38,57 +40,66 @@ public class Distribuidora
                 clienteSeleccionado = c;
             }
         }
-        return clienteSeleccionado; // retorna el cliente con el código indicado, o null si no existe.
+        return clienteSeleccionado;
     }
     
-    public void registrarVenta(){
+    public void registrarVenta(){        
+        Scanner sc = new Scanner(System.in);
         Venta venta = null;
-        int codigoCliente = 1; // Aca paso un codigo en especifico
-        int codigoArticulo = 0; // Aca tambien 
         
-        System.out.println(listaClientes);
-        Collections.sort(listaClientes); // llamo al metodo para ordenar alfabeticamente 
-        Cliente clienteSeleccionado = getClienteSeleccionado(codigoCliente); // obtiene el cliente con el código dado y lo guarda en una variable para usarlo después
-        System.out.println(listaClientes);
-        
+        // --- Selección del cliente ---
+        System.out.println("Lista de clientes: " + listaClientes);
+        Collections.sort(listaClientes);
+        System.out.print("Ingrese código de cliente: ");
+        int codigoCliente = sc.nextInt();
+
+        Cliente clienteSeleccionado = getClienteSeleccionado(codigoCliente);
         if (clienteSeleccionado == null) {
             System.out.println("Cliente no encontrado.");
             return;
-        }else{
-             venta = new Venta(clienteSeleccionado);
+        } else {
+            venta = new Venta(clienteSeleccionado);
         }
-        
-        // imprimo la lista antes y despues de ordenarla
-        System.out.println(listaArticulos);
+
+        // --- Selección de artículos ---
         Collections.sort(listaArticulos);
-        System.out.println(listaArticulos);
-        
+        int codigoArticulo;
         do {
-            codigoArticulo += 1;
-            System.out.println("Seleccione un artículo (0 para finalizar):");
+            System.out.println("Lista de artículos: " + listaArticulos);
+            System.out.println("--------------------");
+            System.out.print("Ingrese código de artículo (0 para finalizar): ");
+            codigoArticulo = sc.nextInt();
+            
+            if (codigoArticulo == 0) break; // salir si ingresa 0
+
             Articulo articuloSeleccionado = getArticuloSeleccionado(codigoArticulo);
-        
             if (articuloSeleccionado != null) {
-                int cantidad = 10; // cantidad especifica 
+                System.out.println("----- DETALLE DE VENTA -----");
+                System.out.print("Ingrese cantidad: ");
+                int cantidad = sc.nextInt();
 
-                //  llamar al metodo que controle lo que me pide el item 4
-                // si artiuclo seleccionado completa el pack y de cuanto es el pack 
+                /* 04 LLAMADA AL METODO Y VERIFICACIONES */
+                if (articuloSeleccionado.esPackCerrado(cantidad)) {
+                    int packs = articuloSeleccionado.cantidadPacks(cantidad);
+                    System.out.println("El pack es completo. Cantidad registrada: " + packs);
+                    venta.agregarDetalle(new DetalleVenta(articuloSeleccionado, packs));
+                    System.out.println("Detalle agregado OK");
+                } else {
+                    System.out.println("El pack no es completo, no se registró el detalle.");
+                }
 
-
-                venta.agregarDetalle(new DetalleVenta(articuloSeleccionado, cantidad));
-                System.out.println("Detalle agregado OK");
-                 
             } else {
                 System.out.println("Código de artículo inválido.");
             }
-        } 
-        while (codigoArticulo < 3 ); // Repite mientras
-        
+        } while (true);
+
+        // --- Finalización ---
         if (venta.calcularTotal() > 0) {
-            System.out.println("✅ Venta registrada correctamente:");
+            System.out.println("--------------------");
+            System.out.println("VENTA REGISTRADA CORRECTAMENTE");
             System.out.println(venta);
         } else {
-            System.out.println("⚠️ No se registró ningún detalle de venta.");
+            System.out.println("No se registró ningún detalle de venta.");
         }
     }
 }
