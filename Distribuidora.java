@@ -4,7 +4,6 @@ import java.util.Collections;
 
 public class Distribuidora
 {
-    estoy haciendo pelotudeces
     ArrayList<Articulo> listaArticulos;
     ArrayList<Cliente> listaClientes;
     
