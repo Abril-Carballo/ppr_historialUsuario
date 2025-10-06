@@ -35,4 +35,8 @@ public class Venta
         s += "Total: $" + calcularTotal();
         return s;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
 }

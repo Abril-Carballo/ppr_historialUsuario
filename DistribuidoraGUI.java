@@ -163,21 +163,30 @@ public class DistribuidoraGUI extends JFrame {
                 }
             }
         });
-
         // --- Acción: confirmar venta ---
         btnConfirmar.addActionListener(e -> {
             if (ventaActual == null || ventaActual.calcularTotal() == 0) {
                 lblMensaje.setForeground(Color.RED);
                 lblMensaje.setText("No hay detalles de venta para confirmar.");
             } else {
-                double total = ventaActual.calcularTotal();
+                double total = ventaActual.calcularTotal(); // ya aplica descuento si es mayorista
                 lblMensaje.setForeground(new Color(0, 128, 0));
-                lblMensaje.setText("Venta confirmada. Total: $" + total);
-                txtDetalle.append("\nVenta confirmada.\nTOTAL: $" + total + "\n");
+
+                String mensaje = "Venta confirmada. TOTAL: $" + total;
+                if (ventaActual.getCliente().esMayorista()) {
+                    mensaje += " (descuento mayorista aplicado)";
+                }
+                lblMensaje.setText(mensaje);
+
+                txtDetalle.append("\n✅ Venta confirmada.\nTOTAL: $" + total);
+                if (ventaActual.getCliente().esMayorista()) {
+                    txtDetalle.append(" (descuento mayorista aplicado)");
+                }
+                txtDetalle.append("\n");
             }
         });
-    }
-
+        }
+        
     // --- MAIN ---
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new DistribuidoraGUI().setVisible(true));

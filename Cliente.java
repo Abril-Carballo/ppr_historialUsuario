@@ -4,6 +4,7 @@ public class Cliente implements Comparable
 {
     private int codigo;
     private String nombre;
+    private boolean mayorista; 
 
     public Cliente()
     { }
@@ -33,5 +34,10 @@ public class Cliente implements Comparable
         for (DetalleVenta d : detalles) {
             total += d.getSubtotal(); }
             return total;
+    }
+
+    
+    public boolean esMayorista() {
+        return mayorista;
     }
 }

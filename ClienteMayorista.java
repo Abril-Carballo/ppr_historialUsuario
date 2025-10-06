@@ -9,6 +9,9 @@ public class ClienteMayorista extends Cliente {
     @Override
     public double calcularTotal(ArrayList<DetalleVenta> detalles) {
         double total = super.calcularTotal(detalles);
-        return total * 0.85; // Aplicar 15% de descuento
+        return total * 0.9; // 10% de descuento
     }
+
+
 }
+
