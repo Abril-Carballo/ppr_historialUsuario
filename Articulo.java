@@ -56,10 +56,6 @@ public class Articulo implements Comparable
         }
     }
 
-
-    
-
-    
     // Sirve para definir un criterio de ordenamiento natural de los objetos de una clase.
      public int compareTo(Object o){
         Articulo c = (Articulo) o; // recibo un objeto y lo casteo a articulo
@@ -70,4 +66,6 @@ public class Articulo implements Comparable
     public double getPrecio(){ return precio; }
     public int getCodigo(){ return codigo; } 
     public String getDenominacion(){ return denominacion; }  
+    public int getTamanioPack() {   return tamanioPack; }
+
 }
