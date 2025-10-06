@@ -1,24 +1,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Collections;
 
 public class Distribuidora {
     ArrayList<Articulo> listaArticulos;
     ArrayList<Cliente> listaClientes;
     
     public Distribuidora() {
-        this.listaArticulos = new ArrayList();
-        this.listaClientes = new ArrayList();
+        this.listaArticulos = new ArrayList<>();
+        this.listaClientes = new ArrayList<>();
     }
 
     // inicia agregando articulos y clientes
     public void iniciar(){
-        listaClientes.add(new Cliente(1,"Consumidor Final"));
-        listaClientes.add(new Cliente(2,"Ruleta"));   
-        listaClientes.add(new Cliente(3,"Perez Ana"));
+        listaClientes.add(new ClienteMayorista(1,"Carlos Lopez"));
+        listaClientes.add(new ClienteMinorista(2,"Marta Suarez"));   
+        listaClientes.add(new ClienteMinorista(3,"Ana Perez"));
 
-        listaArticulos.add(new Articulo(1,"Jugo de agua", 10.0, 10));
+        listaArticulos.add(new Articulo(1,"Botella de agua", 10.0, 10));
         listaArticulos.add(new Articulo(2,"Jugo de limón", 20.0, 10));
+        listaArticulos.add(new Articulo(3,"Jugo de naranja", 22.5, 10));
     }
 
     // Método privado que recibe un código y devuelve el artículo que tenga ese código
@@ -49,7 +49,6 @@ public class Distribuidora {
         
         // --- Selección del cliente ---
         System.out.println("Lista de clientes: " + listaClientes);
-        Collections.sort(listaClientes);
         System.out.print("Ingrese código de cliente: ");
         int codigoCliente = sc.nextInt();
 
@@ -62,7 +61,6 @@ public class Distribuidora {
         }
 
         // --- Selección de artículos ---
-        Collections.sort(listaArticulos);
         int codigoArticulo;
         do {
             System.out.println("Lista de artículos: " + listaArticulos);
@@ -92,7 +90,6 @@ public class Distribuidora {
                     System.out.println("Ingresaste: " + cantidad + " unidades.");
                     System.out.println("Cantidad más cercana sugerida: " + sugerida + " unidades.");
                     System.out.println("El detalle NO se registró, debe ingresar una cantidad válida.");
-
                 }
 
             } else {
